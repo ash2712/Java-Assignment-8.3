@@ -1,0 +1,98 @@
+import java.util.*;
+
+public class runnableClass {
+	public static void main(String s[]){
+		
+		bank b = new bank();
+		b.run();
+		bank1 b1 = new bank1();
+		b1.run1();
+		
+	}
+}
+
+class bank implements Runnable
+{
+	Scanner sc = new Scanner (System.in);
+	
+	int balance;
+	String userChoice;
+	int withdrawal;
+	int deposit;
+	
+	bank(){
+		balance = 10000;
+	}
+	
+	public synchronized void run(){
+		
+		System.out.println("Do you wish to withdraw money or deposit money??");
+		userChoice = sc.nextLine();
+		
+		if (userChoice.toLowerCase().equals("withdraw")){//if user wants to withdraw money
+			System.out.println("How much money do you wish to withdraw??");
+			System.out.println("Balance in account = " + balance);
+			withdrawal = sc.nextInt();
+			if (withdrawal > balance && withdrawal > 0){//occurs if user's withdrawal amount is greater than balance in account
+				System.out.println("Sorry, there is not enough balance in your account to to withdraw rupees " + balance);
+			}else
+			{
+				System.out.println("Congratulations, withdrawal successful");//if withdrawal amount was lesser than balance in account
+				balance = balance - withdrawal;
+				System.out.println("Balance in account = " + balance);
+			}
+		}else if (userChoice.toLowerCase().equals("deposit")){//if user wants to deposit money
+			System.out.println("How much money do you wish to deposit??");
+			System.out.println("Balance in account = " + balance);
+			deposit = sc.nextInt();
+			if(deposit > 0){
+				System.out.println("Congratulations, deposit successful");//if deposit amount is positive
+				balance = balance + deposit;
+				System.out.println("Balance in account = " + balance);
+			}else{
+				System.out.println("Sorry, deposit amount not valid");//if deposit amount is negative
+			}
+		}else{
+			System.out.println("Please type in 'deposit' or 'withdraw'");//if user did not type either withdraw nor deposit
+			run();
+		}
+		
+	}
+	
+}
+
+class bank1 extends bank{//this method doesn't use synchronized keyword
+	public void run1(){
+		System.out.println("Do you wish to withdraw money or deposit money??");
+		userChoice = sc.nextLine();
+		
+		if (userChoice.toLowerCase().equals("withdraw")){//if user wants to withdraw money
+			System.out.println("How much money do you wish to withdraw??");
+			System.out.println("Balance in account = " + balance);
+			withdrawal = sc.nextInt();
+			if (withdrawal > balance && withdrawal > 0){//occurs if user's withdrawal amount is greater than balance in account
+				System.out.println("Sorry, there is not enough balance in your account to to withdraw rupees " + balance);
+			}else
+			{
+				System.out.println("Congratulations, withdrawal successful");//if withdrawal amount was lesser than balance in account
+				balance = balance - withdrawal;
+				System.out.println("Balance in account = " + balance);
+			}
+		}else if (userChoice.toLowerCase().equals("deposit")){//if user wants to deposit money
+			System.out.println("How much money do you wish to deposit??");
+			System.out.println("Balance in account = " + balance);
+			deposit = sc.nextInt();
+			if(deposit > 0){
+				System.out.println("Congratulations, deposit successful");//if deposit amount is positive
+				balance = balance + deposit;
+				System.out.println("Balance in account = " + balance);
+			}else{
+				System.out.println("Sorry, deposit amount not valid");//if deposit amount is negative
+			}
+		}else{
+			System.out.println("Please type in 'deposit' or 'withdraw'");//if user did not type either withdraw nor deposit
+			run();
+		}
+		
+	}
+	}
